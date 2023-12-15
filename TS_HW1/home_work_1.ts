@@ -1,67 +1,72 @@
 class School {
-  directions = [];
+  public directions: any[] = []; // має бути : Direction[]
 
-  addDirection(direction) {
+  public addDirection(direction: any): void {
     this.directions.push(direction);
   }
 }
 
 class Direction {
-  levels = [];
+  public levels: any[] = []; // : Level[]
+  private _name: string;
 
-  get name() {
+  get name(): string {
     return this._name;
   }
 
-  constructor(name) {
+  constructor(name: string) {
     this._name = name;
   }
 
-  addLevel(level) {
+  public addLevel(level: any): void {
     this.levels.push(level);
   }
 }
 
 class Level {
-  groups = [];
+  public groups: any[] = []; // : Group[]
+  private _name: string;
+  private _program: string;
 
-  constructor(name, program) {
-    this.name = name;
+  constructor(name: string, program: string) {
+    this._name = name;
     this._program = program;
   }
 
-  get name() {
+  get name(): string {
     return this._name;
   }
 
-  get program() {
+  get program(): string {
     return this._program;
   }
 
-  addGroup(group) {
+  public addGroup(group: any) {
     this.groups.push(group);
   }
 }
 
 class Group {
-  _students = [];
-
-  get students() {
+  private _students: any[] = []; // : Student[]
+  public directionName: string;
+  public levelName: string;
+  
+  get students(): any[] {
     return this._students;
   }
 
-  constructor(directionName, levelName) {
+  constructor(directionName: string, levelName: string) {
     this.directionName = directionName;
     this.levelName = levelName;
   }
 
-  addStudent(student) {
+  public addStudent(student: any): void {
     this._students.push(student);
   }
 
-  showPerformance() {
-    const sortedStudents = this.students.toSorted(
-      (a, b) => b.getPerformanceRating() - a.getPerformanceRating()
+  public showPerformance(): any[] {
+    const sortedStudents: any[] = this.students.toSorted(
+      (a: any, b: any) => b.getPerformanceRating() - a.getPerformanceRating()
     );
 
     return sortedStudents;
@@ -69,45 +74,49 @@ class Group {
 }
 
 class Student {
-  grades = {};
-  attendance = [];
+  public grades: any = {};            // певний об'єкт Grade ?
+  public attendance: boolean[] = [];  // або об'єкт ?
+  public firstName: string;
+  public lastName: string;
+  public birthYear: number;
+  
 
-  constructor(firstName, lastName, birthYear) {
+  constructor(firstName: string, lastName: string, birthYear: number) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.birthYear = birthYear;
   }
 
-  get fullName() {
+  get fullName(): string {
     return `${this.lastName} ${this.firstName}`;
   }
 
-  set fullName(value) {
+  set fullName(value: string) {
     [this.lastName, this.firstName] = value.split(" ");
   }
 
-  get age() {
+  get age(): number {
     return new Date().getFullYear() - this.birthYear;
   }
 
-  setGrade(subject, grade) {
+  public setGrade(subject: string, grade: number): void {
     this.grades[subject] = grade;
   }
 
-  markAttendance(present) {
+  public markAttendance(present: boolean): void {
     this.attendance.push(present);
   }
 
-  getPerformanceRating() {
-    const gradeValues = Object.values(this.grades);
+  public getPerformanceRating(): number {
+    const gradeValues: number[] = Object.values(this.grades);
 
     if (gradeValues.length === 0) return 0;
 
-    const averageGrade =
-      gradeValues.reduce((sum, grade) => sum + grade, 0) / gradeValues.length;
+    const averageGrade: number =
+      gradeValues.reduce((sum: number, grade: number) => sum + grade, 0) / gradeValues.length;
 
-    const attendancePercentage =
-      (this.attendance.filter((present) => present).length /
+    const attendancePercentage: number =
+      (this.attendance.filter((present: boolean) => present).length /
         this.attendance.length) *
       100;
 
