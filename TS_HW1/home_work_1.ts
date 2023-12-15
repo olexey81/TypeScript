@@ -60,11 +60,11 @@ class Group {
     this.levelName = levelName;
   }
 
-  public addStudent(student: any) {
+  public addStudent(student: any): void {
     this._students.push(student);
   }
 
-  public showPerformance() {
+  public showPerformance(): any[] {
     const sortedStudents: any[] = this.students.toSorted(
       (a: any, b: any) => b.getPerformanceRating() - a.getPerformanceRating()
     );
@@ -116,7 +116,7 @@ class Student {
       gradeValues.reduce((sum: number, grade: number) => sum + grade, 0) / gradeValues.length;
 
     const attendancePercentage: number =
-      (this.attendance.filter((present) => present).length /
+      (this.attendance.filter((present: boolean) => present).length /
         this.attendance.length) *
       100;
 
